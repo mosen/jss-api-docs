@@ -1,0 +1,45 @@
+{
+  "apiVersion": "0.2",
+  "resourcePath": "/activationcode",
+  "basePath": "../JSSResource/",
+  "apis": [
+    {
+      "description": "Operations about the JSS activation code",
+      "operations": [
+        {
+          "httpMethod": "GET",
+          "nickname": "findactivationcode",
+          "summary": "Finds the JSS activation code"
+        },
+        {
+          "httpMethod": "PUT",
+          "nickname": "updateActivationCode",
+          "summary": "Updates the JSS activation code"
+        }
+      ],
+      "path": "/activationcode"
+    }
+  ],
+  "models": {
+    "ActivationCode": {
+      "id": "activation code",
+      "description": "Activation Code",
+      "required": [
+        "organization_name",
+        "code"
+      ],
+      "properties": {
+        "id": {
+          "type": "long"
+        },
+        "organization_name": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "swaggerVersion": "1.2"
+}

@@ -1,0 +1,304 @@
+{
+  "apiVersion": "0.2",
+  "resourcePath": "/accounts",
+  "basePath": "../JSSResource/",
+  "produces": [
+    "application/xml",
+    "text/xml",
+    "application/json",
+    "text/javascript"
+  ],
+  "consumes": [
+    "application/xml",
+    "text/xml"
+  ],
+  "authorizations": {
+    "basic": {}
+  },
+  "apis": [
+    {
+      "description": "Operations about accounts",
+      "operations": [
+        {
+          "method": "GET",
+          "nickname": "findAccounts",
+          "summary": "Finds all accounts",
+          "parameters": [],
+          "responseMessages": [
+            {
+              "code": 401,
+              "message": "Authentication Failed"
+            },
+            {
+              "code": 403,
+              "message": "Insufficient Privileges"
+            }
+          ]
+        }
+      ],
+      "path": "/accounts"
+    },
+    {
+      "description": "Operations about user accounts by id",
+      "operations": [
+        {
+          "method": "GET",
+          "nickname": "findUsersById",
+          "summary": "Finds users by id",
+          "parameters": [
+            {
+              "allowMultiple": false,
+              "dataType": "long",
+              "description": "Id value to filter by",
+              "name": "id",
+              "paramType": "path",
+              "required": true
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "nickname": "createUserById",
+          "summary": "Creates a new user by id",
+          "notes": "You cannot create an LDAP account or assign a password with a POST.  ",
+          "parameters": [
+            {
+              "allowMultiple": false,
+              "dataType": "string",
+              "description": "To create a new object, this must be zero",
+              "name": "id",
+              "defaultValue": "0",
+              "paramType": "path",
+              "required": true
+            },
+            {
+              "paramType": "body",
+              "name": "body",
+              "description": "The new object",
+              "required": true,
+              "type": "Account"
+            }
+          ]
+        },
+        {
+          "method": "PUT",
+          "nickname": "updateUserById",
+          "summary": "Updates an existing user by id",
+          "notes": "You cannot change information in an LDAP account or change a password with a PUT.",
+          "parameters": [
+            {
+              "allowMultiple": false,
+              "dataType": "long",
+              "description": "Id value to filter by",
+              "name": "id",
+              "paramType": "path",
+              "required": true
+            },
+            {
+              "paramType": "body",
+              "name": "body",
+              "description": "The updated object",
+              "required": true,
+              "type": "Account"
+            }
+          ]
+        },
+        {
+          "method": "DELETE",
+          "nickname": "deleteUserById",
+          "summary": "Deletes a user by id",
+          "parameters": [
+            {
+              "allowMultiple": false,
+              "dataType": "long",
+              "description": "Id value to filter by",
+              "name": "id",
+              "paramType": "path",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "path": "/accounts/userid/{id}"
+    },
+    {
+      "description": "Operations about group accounts by name",
+      "operations": [
+        {
+          "method": "GET",
+          "nickname": "findUsersByName",
+          "summary": "Finds users by name",
+          "notes": "You can PUT, POST, and DELETE using this resource URL.",
+          "parameters": [
+            {
+              "allowMultiple": false,
+              "dataType": "string",
+              "description": "Name to filter by",
+              "name": "name",
+              "paramType": "path",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "path": "/accounts/username/{name}"
+    },
+    {
+      "description": "Operations about group accounts by id",
+      "operations": [
+        {
+          "method": "GET",
+          "nickname": "findGroupsById",
+          "summary": "Finds groups by id",
+          "parameters": [
+            {
+              "allowMultiple": false,
+              "dataType": "long",
+              "description": "Id value to filter by",
+              "name": "id",
+              "paramType": "path",
+              "required": true
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "nickname": "createGroupById",
+          "summary": "Creates a new group by id",
+          "notes": "You cannot create an LDAP group with a POST.  ",
+          "parameters": [
+            {
+              "allowMultiple": false,
+              "dataType": "string",
+              "description": "Id value to filter by",
+              "name": "id",
+              "paramType": "path",
+              "required": true
+            }
+          ]
+        },
+        {
+          "method": "PUT",
+          "nickname": "updateGroupById",
+          "summary": "Updates an existing group by id",
+          "notes": "You cannot change information for an LDAP group with a PUT.",
+          "parameters": [
+            {
+              "allowMultiple": false,
+              "dataType": "long",
+              "description": "Id value to filter by",
+              "name": "id",
+              "paramType": "path",
+              "required": true
+            }
+          ]
+        },
+        {
+          "method": "DELETE",
+          "nickname": "deleteGroupById",
+          "summary": "Deletes a group by id",
+          "parameters": [
+            {
+              "allowMultiple": false,
+              "dataType": "long",
+              "description": "Id value to filter by",
+              "name": "id",
+              "paramType": "path",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "path": "/accounts/groupid/{id}"
+    },
+    {
+      "description": "Operations about single groups by name",
+      "operations": [
+        {
+          "method": "GET",
+          "nickname": "findGroupsByName",
+          "summary": "Finds groups by name",
+          "notes": "You can PUT, POST, and DELETE using this resource URL.",
+          "parameters": [
+            {
+              "allowMultiple": false,
+              "dataType": "string",
+              "description": "Name to filter by",
+              "name": "name",
+              "paramType": "path",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "path": "/accounts/groupname/{name}"
+    }
+  ],
+  "models": {
+    "Account": {
+      "id": "account",
+      "description": "JSS User Account",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "long"
+        },
+        "name": {
+          "type": "string"
+        },
+        "directory_user": {
+          "type": "boolean"
+        },
+        "full_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "email_address": {
+          "type": "string",
+          "format": "email"
+        },
+        "password_sha256": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "string",
+          "enum": ["Enabled", "Disabled"],
+          "defaultValue": "Enabled"
+        },
+        "force_password_change": {
+          "type": "boolean",
+          "defaultValue": false
+        },
+        "access_level": {
+          "type": "string",
+          "enum": ["Full Access", "Site Access", "Group Access"]
+        },
+        "privilege_set": {
+          "type": "string",
+          "enum": ["Administrator", "Auditor", "Custom", "Enrollment Only"]
+        },
+        "privileges": {
+          "$ref": "privilege_set"
+        }
+      }
+    },
+    "Group": {
+      "id": "group",
+      "description": "JSS User Group",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "long"
+        }
+      }
+    }
+  },
+  "swaggerVersion": "1.2"
+}

@@ -1,0 +1,151 @@
+{
+  "apiVersion": "0.2",
+  "resourcePath": "/advancedcomputersearches",
+  "basePath": "../JSSResource/",
+  "apis": [
+    {
+      "description": "Operations about sites",
+      "operations": [
+        {
+          "httpMethod": "GET",
+          "nickname": "findAdvancedComputerSearches",
+          "summary": "Finds all advanced computer searches"
+        }
+      ],
+      "path": "/advancedcomputersearches"
+    },
+    {
+      "description": "Operations about single computer searches by id",
+      "operations": [
+        {
+          "httpMethod": "GET",
+          "nickname": "findAdvancedComputerSearchesById",
+          "summary": "Finds computer searches by id",
+          "parameters": [
+            {
+              "allowMultiple": false,
+              "dataType": "long",
+              "description": "Id value to filter by",
+              "name": "id",
+              "paramType": "path",
+              "required": true
+            }
+          ]
+        },
+        {
+          "httpMethod": "POST",
+          "nickname": "createAdvancedComputerSearchgById",
+          "summary": "Creates a new advanced computer search by id",
+          "parameters": [
+            {
+              "allowMultiple": false,
+              "dataType": "string",
+              "description": "Id value to filter by",
+              "name": "id",
+              "paramType": "path",
+              "required": true
+            }
+          ]
+        },
+        {
+          "httpMethod": "PUT",
+          "nickname": "updateAdvancedComputerSearchById",
+          "summary": "Updates an existing advanced computer search by id",
+          "parameters": [
+            {
+              "allowMultiple": false,
+              "dataType": "long",
+              "description": "Id value to filter by",
+              "name": "id",
+              "paramType": "path",
+              "required": true
+            }
+          ]
+        },
+        {
+          "httpMethod": "DELETE",
+          "nickname": "deleteAdvancedComputerSearchById",
+          "summary": "Deletes a computer search by id",
+          "parameters": [
+            {
+              "allowMultiple": false,
+              "dataType": "long",
+              "description": "Id value to filter by",
+              "name": "id",
+              "paramType": "path",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "path": "/advancedcomputersearches/id/{id}"
+    },
+    {
+      "description": "Operations about single computer searches by name",
+      "operations": [
+        {
+          "httpMethod": "GET",
+          "nickname": "findComputerSearchesByName",
+          "summary": "Finds computer searches by name",
+          "notes": "You can PUT, POST, and DELETE using this resource URL.",
+          "parameters": [
+            {
+              "allowMultiple": false,
+              "dataType": "string",
+              "description": "Name to filter by",
+              "name": "name",
+              "paramType": "path",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "path": "/advancedcomputersearches/name/{name}"
+    }
+  ],
+  "models": {
+    "AdvancedComputerSearch": {
+      "id": "advancedcomputersearch",
+      "properties": {
+        "id": {
+          "type": "long"
+        },
+        "name": {
+          "type": "string"
+        },
+        "view_as": {
+          "type": "string",
+          "defaultValue": "Standard Web Page"
+        },
+        "sort_1": {
+          "type": "string"
+        },
+        "sort_2": {
+          "type": "string"
+        },
+        "sort_3": {
+          "type": "string"
+        },
+        "criteria": {
+          "$ref": "criterion"
+        },
+        "display_fields": {
+          "type": "array",
+          "items": {
+            "$ref": "display_field"
+          }
+        },
+        "computers": {
+          "type": "array",
+          "items": {
+            "$ref": "computer"
+          }
+        },
+        "site": {
+          "$ref": "site"
+        }
+      }
+    }
+  },
+  "swaggerVersion": "1.2"
+}
