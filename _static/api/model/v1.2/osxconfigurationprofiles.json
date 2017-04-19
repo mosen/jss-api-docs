@@ -1,0 +1,420 @@
+{
+    "apiVersion":"0.2",
+    "resourcePath":"/osxconfigurationprofiles",
+    "basePath":"../JSSResource/",
+    "apis":[
+        {
+            "description":"Operations about OS X configuration profiles",
+            "operations":[
+                {
+                    "httpMethod":"GET",
+                    "nickname":"findOsxConfigurationProfiles",
+                    "summary":"Finds all OS X configuration profiles"
+                }
+            ],
+            "path":"/osxconfigurationprofiles"
+        },
+        {
+            "description":"Operations about single OS X configuration profiles by id",
+            "operations":[
+                {
+                    "httpMethod":"GET",
+                    "nickname":"findOsxConfigurationProfilesById",
+                    "summary":"Finds OS X configuration profiles by id",
+                    "parameters":[
+                        {
+                            "allowMultiple":false,
+                            "dataType":"long",
+                            "description":"Id value to filter by",
+                            "name":"id",
+                            "paramType":"path",
+                            "required":true
+                        }
+                    ]
+                },
+                {
+                    "httpMethod":"POST",
+                    "nickname":"createOsxConfigurationProfileById",
+                    "summary":"Creates a new OS X configuration profile by id",
+                    "parameters":[
+                        {
+                            "allowMultiple":false,
+                            "dataType":"string",
+                            "description":"Id value to filter by",
+                            "name":"id",
+                            "paramType":"path",
+                            "required":true
+                        }
+                    ]
+                },
+                {
+                    "httpMethod":"PUT",
+                    "nickname":"updateOsxConfigurationProfileById",
+                    "summary":"Updates an existing OS X configuration profile by id",
+                    "parameters":[
+                        {
+                            "allowMultiple":false,
+                            "dataType":"long",
+                            "description":"Id value to filter by",
+                            "name":"id",
+                            "paramType":"path",
+                            "required":true
+                        }
+                    ]
+                },
+                {
+                    "httpMethod":"DELETE",
+                    "nickname":"deleteOsxConfigurationProfileById",
+                    "summary":"Deletes a OS X configuration profile by id",
+                    "parameters":[
+                        {
+                            "allowMultiple":false,
+                            "dataType":"long",
+                            "description":"Id value to filter by",
+                            "name":"id",
+                            "paramType":"path",
+                            "required":true
+                        }
+                    ]
+                }
+            ],
+            "path":"/osxconfigurationprofiles/id/{id}"
+        },
+        {
+            "description":"Operations about single OS X configuration profiles by name",
+            "operations":[
+                {
+                    "httpMethod":"GET",
+                    "nickname":"findOsxConfigurationProfilesByName",
+                    "summary":"Finds OS X configuration profiles by name",
+                    "notes":"You can PUT, POST, and DELETE using this resource URL.",
+                    "parameters":[
+                        {
+                            "allowMultiple":false,
+                            "dataType":"string",
+                            "description":"Name to filter by",
+                            "name":"name",
+                            "paramType":"path",
+                            "required":true
+                        }
+                    ]
+                }
+            ],
+            "path":"/osxconfigurationprofiles/name/{name}"
+        },
+        {
+            "description":"Operations about a single configuration profile by JSS id, returning information subsets",
+            "operations":[
+                {
+                    "httpMethod":"GET",
+                    "nickname":"findOsxConfigurationProfilesByIdSubset",
+                    "summary":"Display subsets of information for an OS X configuration profile",
+                    "notes":"Displays information specified with the {subset} parameter for a configuration specified with the {id} parameter. Lookup by name is also supported.  For example, /osxconfigurationprofiles/id/3/subset/General&Scope or /osxconfigurationprofiles/name/MyCP/subset/General.",
+                    "parameters":[
+                        {
+                            "allowMultiple":false,
+                            "dataType":"string",
+                            "description":"Id to filter by",
+                            "name":"id",
+                            "paramType":"path",
+                            "required":true
+                        },
+                        {
+                            "allowMultiple":false,
+                            "dataType":"string",
+                            "description":"Subset to filter by",
+                            "name":"subset",
+                            "paramType":"path",
+                            "defaultValue":"General",
+                            "required":true
+                        }
+                    ]
+                }
+            ],
+            "path":"/osxconfigurationprofiles/id/{id}/subset/{subset}"
+        }
+        
+    ],
+    "models":{
+        "SelfServiceIcon": {
+            "id": "self_service_icon",
+            "properties": {
+                "id": {
+                    "type": "long"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "filename": {
+                    "type": "string"
+                },
+                "uri": {
+                    "type": "string",
+                    "format": "uri"
+                },
+                "data": {
+                    "type": "string",
+                    "format": "base64"
+                }
+            }
+        },
+        "SelfServiceSecurity": {
+            "id": "security",
+            "properties": {
+                "removal_disallowed": {
+                    "type": "string",
+                    "enum": ["Always", "Never", "With Authorization"]
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "SelfServiceCategory": {
+            "id": "category",
+            "properties": {
+                "id": {
+                    "type": "long"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "display_in": {
+                    "type": "boolean"
+                },
+                "feature_in": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "SelfService": {
+            "id": "self_service",
+            "properties": {
+                "security": {
+                    "$ref": "SelfServiceSecurity"
+                },
+                "self_service_icon": {
+                    "$ref": "SelfServiceIcon"
+                },
+                "self_service_categories": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "SelfServiceCategory"
+                    }
+                },
+                "install_button_text": {
+                    "type": "string"
+                },
+                "self_service_description": {
+                    "type": "string"
+                },
+                "force_users_to_view_description": {
+                    "type": "boolean"
+                },
+                "feature_on_main_page": {
+                    "type": "boolean"
+                },
+                "notification": {
+                    "type": "string"
+                },
+                "notification_subject": {
+                    "type": "string"
+                },
+                "notification_message": {
+                    "type": "string"
+                }
+            }
+        },
+        "ComputerStub": {
+            "id": "computer",
+            "properties": {
+                   
+            }
+        },
+        "ObjectStub": {
+            "id": "object",
+            "properties": {
+                "id": {
+                    "type": "long"
+                },
+                "name": {
+                    "name": "string"
+                }
+            }
+        },
+        "ScopeLimitations": {
+            "id": "ScopeLimitations",
+            "properties": {
+                "users": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "user"
+                    }
+                },
+                "user_groups": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "ObjectStub"
+                    }
+                },
+                "network_segments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "ObjectStub"
+                    }
+                },
+                "ibeacons": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "ObjectStub"
+                    }
+                }
+            }
+        },
+        "ScopeExclusions": {
+            "id": "ScopeExclusions",
+            "properties": {
+                "computers": {},
+                "computer_groups": {},
+                "mobile_devices": {},
+                "mobile_device_groups": {},
+                "buildings": {},
+                "departments": {},
+                "users": {},
+                "user_groups": {},
+                "jss_users": {},
+                "jss_user_groups": {},
+                "network_segments": {},
+                "ibeacons": {}
+            }
+        },
+        "Scope": {
+            "id": "Scope",
+            "properties": {
+                "computers": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "computer"
+                    }
+                },
+                "computer_groups": {
+                    "type": "array"
+                },
+                "mobile_devices": {
+                    "type": "array"
+                },
+                "mobile_device_additions": {
+
+                },
+                "mobile_device_deletions": {
+
+                },
+                "computer_additions": {
+
+                },
+                "computer_deletions": {
+
+                },
+                "mobile_device_groups": {
+                    "type": "array"
+                },
+                "buildings": {
+                    "type": "array"
+                },
+                "departments": {
+                    "type": "array"
+                },
+                "classes": {
+                    "type": "array"
+                },
+                "jss_users": {
+                    "type": "array"
+                },
+                "jss_user_groups": {
+                    "type": "array"
+                },
+                "limit_to_users": {
+                    "type": "array"
+                },
+                "network_limitations": {
+                    "type": "array"
+                },
+                "limitations": {
+                    "$ref": "ScopeLimitations"
+                },
+                "exclusions": {
+
+                }
+            }
+        },
+        "ConfigurationProfile": {
+            "id": "payload",
+            "properties": {
+                "plist": {
+                    "$ref": "mobileconfig"
+                }
+            }
+        },
+        "OsxConfigurationProfile":{
+            "id":"osx configuration profile",
+            "properties":{
+                "general": {
+                    "$ref": "OsxConfigurationProfileGeneral"
+                },
+                "scope": {
+                    "$ref": "Scope"
+                },
+                "self_service": {
+                    "$ref": "SelfService"
+                }
+            }
+        },
+        "OsxConfigurationProfileGeneral": {
+            "id": "general",
+            "properties": {
+                "id":{
+                    "type":"long"
+                },
+                "name":{
+                    "type":"string"
+                },
+                "description": {
+                    "type":"string"
+                },
+                "site": {
+                    "type": "string"
+                },
+                "category": {
+                    "type": "string"
+                },
+                "distribution_method": {
+                    "type": "string",
+                    "enum": ["Install Automatically", "Make Available in Self Service"],
+                    "defaultValue": "Make Available in Self Service"
+                },
+                "user_removable": {
+                    "type": "boolean"
+                },
+                "level": {
+                    "type": "string",
+                    "enum": ["computer", "user"],
+                    "defaultValue": "user"
+                },
+                "uuid": {
+
+                },
+                "redeploy_on_update": {
+                    "type": "string",
+                    "enum": ["All", "Newly Assigned"]
+                },
+                "payloads": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "ConfigurationProfile"
+                    }
+                }
+            }
+        }
+    },
+    "swaggerVersion":"1.2"
+}
